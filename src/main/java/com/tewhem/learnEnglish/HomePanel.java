@@ -2,12 +2,17 @@ package com.tewhem.learnEnglish;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
 
 public class HomePanel extends JPanel {
@@ -25,11 +30,19 @@ public class HomePanel extends JPanel {
 
         btnChooseSrt = new JButton();
         fileChooser = new JFileChooser();
-
-        btnChooseSrt.setBackground(new Color(213, 144, 6));
-        btnChooseSrt.setFont(new Font("Dubai", 1, 14));
+        ImageIcon icon = new ImageIcon("button.png");
+        Image img = icon.getImage();
+        Image newImg = img.getScaledInstance(200, 20, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newImg);
+        btnChooseSrt.setIcon(icon);
+        btnChooseSrt.setBackground(Color.BLUE);
+        Border emptyBorder = BorderFactory.createEmptyBorder();
+        btnChooseSrt.setBorder(emptyBorder);
+        // btnChooseSrt.setBorderPainted(false);
+        btnChooseSrt.setFont(new Font("Dubai", 2, 14));
         btnChooseSrt.setForeground(new Color(3, 2, 0));
         btnChooseSrt.setText("Choose the srt file");
+        btnChooseSrt.setHorizontalTextPosition(SwingConstants.CENTER);
         btnChooseSrt.addActionListener(e -> btnChooseSrtActionPerformed(e));
         add(btnChooseSrt);
         btnChooseSrt.setBounds(100, 50, 200, 20);
