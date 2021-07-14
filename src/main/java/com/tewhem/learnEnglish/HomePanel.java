@@ -19,6 +19,7 @@ public class HomePanel extends JPanel {
 
     private JFileChooser fileChooser;
     private JButton btnChooseSrt;
+    private FileProcess fileProcess;
 
     public HomePanel() {
         initComponents();
@@ -26,7 +27,7 @@ public class HomePanel extends JPanel {
 
     private void initComponents() {
         setLayout(null);
-        setBackground(Color.BLUE);
+        setBackground(new Color(254, 68, 3));
 
         btnChooseSrt = new JButton();
         fileChooser = new JFileChooser();
@@ -35,15 +36,14 @@ public class HomePanel extends JPanel {
         Image newImg = img.getScaledInstance(200, 20, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImg);
         btnChooseSrt.setIcon(icon);
-        btnChooseSrt.setBackground(Color.BLUE);
+        btnChooseSrt.setBackground(new Color(254, 68, 3));
         Border emptyBorder = BorderFactory.createEmptyBorder();
         btnChooseSrt.setBorder(emptyBorder);
-        // btnChooseSrt.setBorderPainted(false);
         btnChooseSrt.setFont(new Font("Dubai", 2, 14));
         btnChooseSrt.setForeground(new Color(3, 2, 0));
         btnChooseSrt.setText("Choose the srt file");
         btnChooseSrt.setHorizontalTextPosition(SwingConstants.CENTER);
-        btnChooseSrt.addActionListener(e -> btnChooseSrtActionPerformed(e));
+        btnChooseSrt.addActionListener(this::btnChooseSrtActionPerformed);
         add(btnChooseSrt);
         btnChooseSrt.setBounds(100, 50, 200, 20);
 
@@ -52,7 +52,6 @@ public class HomePanel extends JPanel {
     private void btnChooseSrtActionPerformed(ActionEvent e) {
         System.out.println("Butona basıldı");
         fileChooser.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File f) {
                 if (f.isDirectory()) {
@@ -60,18 +59,14 @@ public class HomePanel extends JPanel {
                 }
                 String extension = f.getName();
                 extension = extension.replaceAll(".*\\.", "");
-                if (extension.equals("srt")) {
-                    return true;
-                }
+                return extension.equals("srt");
 
-                return false;
             }
 
             @Override
             public String getDescription() {
                 return "*.srt files";
             }
-
         });
         fileChooser.setAcceptAllFileFilterUsed(false);
         int returnValue = fileChooser.showOpenDialog(this);
@@ -79,7 +74,12 @@ public class HomePanel extends JPanel {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
 
-            System.out.println(file.getName());
+            fileProcess = new FileProcess(file);
+
+            fileProcess.readSrtFile();
+
+            System.out.println(fileProcess.getWords());
+            System.out.println();
         }
     }
 }
