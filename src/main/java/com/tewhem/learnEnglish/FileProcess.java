@@ -18,10 +18,10 @@ public class FileProcess {
         this.srtFile = srtFile;
 
         try (var reader = new Scanner(
-                new BufferedReader(new FileReader("CommonWords.txt")))) {
+                new BufferedReader(new FileReader("B1-Words.txt")))) {
 
-            while (reader.hasNextLine()) {
-                knownWords.add(reader.nextLine());
+            while (reader.hasNext()) {
+                knownWords.add(reader.next().toLowerCase());
             }
 
         } catch (Exception e) {
@@ -34,11 +34,9 @@ public class FileProcess {
                 new Scanner(new BufferedReader(new FileReader(srtFile)))) {
 
             while (reader.hasNext()) {
-                String word = reader.next();
+                String word = reader.next().toLowerCase();
 
-                if (word.matches("[a-zA-Z]+") &&
-                        (!knownWords.contains(word.toLowerCase()) ||
-                                !knownWords.contains(word.toUpperCase()))) {
+                if (word.matches("[a-zA-Z]+") && !knownWords.contains(word)) {
                     unKnownWords.add(word);
                 }
             }
