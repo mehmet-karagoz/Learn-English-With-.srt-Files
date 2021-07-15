@@ -1,13 +1,17 @@
 package com.tewhem.learnEnglish;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+
+import net.didion.jwnl.JWNLException;
 
 public class FileProcess implements Serializable {
 
@@ -46,6 +50,20 @@ public class FileProcess implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeUnKnownWords(String fileName) {
+        try (BufferedWriter writer =
+                new BufferedWriter(new FileWriter(fileName))) {
+            DictionaryProcess.initialize();
+            for (String word : unKnownWords) {
+                writer.write(DictionaryProcess.translateWord(word));
+            }
+
+        } catch (IOException | JWNLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public File getSrtFile() {

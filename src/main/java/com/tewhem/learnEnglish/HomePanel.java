@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -108,6 +109,8 @@ public class HomePanel extends JPanel {
         System.out.println("diger buton");
         String targetFileName = txtFileName.getText();
 
-        System.out.println(targetFileName);
+        fileProcess.writeUnKnownWords(targetFileName);
+
+        JOptionPane.showMessageDialog(this, "UnKnownWords wrote successfully");
     }
 }
