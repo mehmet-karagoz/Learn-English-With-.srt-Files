@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
 
-            HomeScreen frame = new HomeScreen("Home");
+            var frame = new HomeScreen("Home");
             frame.setVisible(true);
 
         });
