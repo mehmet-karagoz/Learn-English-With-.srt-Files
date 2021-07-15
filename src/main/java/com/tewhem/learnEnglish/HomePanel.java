@@ -25,6 +25,8 @@ public class HomePanel extends JPanel {
     private JTextField txtFileName;
     private JButton btnWriteUnKnownWords;
     private JLabel lblQuestion;
+    private JButton btnYes;
+    private JButton btnNo;
 
     public HomePanel() {
         initComponents();
@@ -84,6 +86,32 @@ public class HomePanel extends JPanel {
         lblQuestion.setHorizontalTextPosition(SwingConstants.CENTER);
         add(lblQuestion);
         lblQuestion.setBounds(100, 140, 200, 40);
+
+        newImg = img.getScaledInstance(110, 25, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newImg);
+        btnYes = new JButton();
+        btnYes.setIcon(icon);
+        btnYes.setBackground(new Color(254, 68, 3));
+        btnYes.setBorder(emptyBorder);
+        btnYes.setForeground(new Color(3, 2, 0));
+        btnYes.setFont(new Font(fontName, 2, 14));
+        btnYes.setText("YES");
+        btnYes.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnYes.addActionListener(this::btnYesActionPerformed);
+        add(btnYes);
+        btnYes.setBounds(100, 190, 90, 20);
+
+        btnNo = new JButton();
+        btnNo.setIcon(icon);
+        btnNo.setBackground(new Color(254, 68, 3));
+        btnNo.setBorder(emptyBorder);
+        btnNo.setForeground(new Color(3, 2, 0));
+        btnNo.setFont(new Font(fontName, 2, 14));
+        btnNo.setText("NO");
+        btnNo.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnNo.addActionListener(this::btnNoActionPerformed);
+        add(btnNo);
+        btnNo.setBounds(210, 190, 90, 20);
     }
 
     private void btnChooseSrtActionPerformed(ActionEvent e) {
@@ -122,5 +150,13 @@ public class HomePanel extends JPanel {
         fileProcess.writeUnKnownWords(targetFileName);
 
         JOptionPane.showMessageDialog(this, "UnKnownWords wrote successfully");
+    }
+
+    private void btnYesActionPerformed(ActionEvent e) {
+        System.out.println("yes");
+    }
+
+    private void btnNoActionPerformed(ActionEvent e) {
+        System.out.println("no");
     }
 }
