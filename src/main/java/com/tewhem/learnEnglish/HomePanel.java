@@ -11,8 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
 
 public class HomePanel extends JPanel {
@@ -20,6 +20,8 @@ public class HomePanel extends JPanel {
     private JFileChooser fileChooser;
     private JButton btnChooseSrt;
     private FileProcess fileProcess;
+    private JTextField txtFileName;
+    private JButton btnWriteUnKnownWords;
 
     public HomePanel() {
         initComponents();
@@ -31,15 +33,16 @@ public class HomePanel extends JPanel {
 
         btnChooseSrt = new JButton();
         fileChooser = new JFileChooser();
-        ImageIcon icon = new ImageIcon("button.png");
-        Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(200, 20, Image.SCALE_SMOOTH);
+        var icon = new ImageIcon("button.png");
+        var img = icon.getImage();
+        Image newImg = img.getScaledInstance(220, 25, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImg);
         btnChooseSrt.setIcon(icon);
         btnChooseSrt.setBackground(new Color(254, 68, 3));
-        Border emptyBorder = BorderFactory.createEmptyBorder();
+        var emptyBorder = BorderFactory.createEmptyBorder();
         btnChooseSrt.setBorder(emptyBorder);
-        btnChooseSrt.setFont(new Font("Dubai", 2, 14));
+        var fontName = "Dubai";
+        btnChooseSrt.setFont(new Font(fontName, 2, 14));
         btnChooseSrt.setForeground(new Color(3, 2, 0));
         btnChooseSrt.setText("Choose the srt file");
         btnChooseSrt.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -47,6 +50,24 @@ public class HomePanel extends JPanel {
         add(btnChooseSrt);
         btnChooseSrt.setBounds(100, 50, 200, 20);
 
+        txtFileName = new JTextField();
+        txtFileName.setFont(new Font(fontName, 2, 14));
+        txtFileName.setForeground(new Color(3, 2, 0));
+        txtFileName.setText("Write file name with *.txt");
+        add(txtFileName);
+        txtFileName.setBounds(100, 80, 200, 20);
+
+        btnWriteUnKnownWords = new JButton();
+        btnWriteUnKnownWords.setIcon(icon);
+        btnWriteUnKnownWords.setBackground(new Color(254, 68, 3));
+        btnWriteUnKnownWords.setBorder(emptyBorder);
+        btnWriteUnKnownWords.setFont(new Font(fontName, 2, 14));
+        btnWriteUnKnownWords.setText("Write unKnownWords");
+        btnWriteUnKnownWords.setHorizontalTextPosition(SwingConstants.CENTER);
+        btnWriteUnKnownWords
+                .addActionListener(this::btnWriteUnKnownWordsActionPerformed);
+        add(btnWriteUnKnownWords);
+        btnWriteUnKnownWords.setBounds(100, 110, 200, 20);
     }
 
     private void btnChooseSrtActionPerformed(ActionEvent e) {
@@ -72,7 +93,7 @@ public class HomePanel extends JPanel {
         int returnValue = fileChooser.showOpenDialog(this);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
+            var file = fileChooser.getSelectedFile();
 
             fileProcess = new FileProcess(file);
 
@@ -81,5 +102,12 @@ public class HomePanel extends JPanel {
             System.out.println(fileProcess.getWords());
             System.out.println();
         }
+    }
+
+    private void btnWriteUnKnownWordsActionPerformed(ActionEvent e) {
+        System.out.println("diger buton");
+        String targetFileName = txtFileName.getText();
+
+        System.out.println(targetFileName);
     }
 }
