@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,6 +24,7 @@ public class HomePanel extends JPanel {
     private FileProcess fileProcess;
     private JTextField txtFileName;
     private JButton btnWriteUnKnownWords;
+    private JLabel lblQuestion;
 
     public HomePanel() {
         initComponents();
@@ -62,6 +64,7 @@ public class HomePanel extends JPanel {
         btnWriteUnKnownWords.setIcon(icon);
         btnWriteUnKnownWords.setBackground(new Color(254, 68, 3));
         btnWriteUnKnownWords.setBorder(emptyBorder);
+        btnWriteUnKnownWords.setForeground(new Color(3, 2, 0));
         btnWriteUnKnownWords.setFont(new Font(fontName, 2, 14));
         btnWriteUnKnownWords.setText("Write unKnownWords");
         btnWriteUnKnownWords.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -69,10 +72,21 @@ public class HomePanel extends JPanel {
                 .addActionListener(this::btnWriteUnKnownWordsActionPerformed);
         add(btnWriteUnKnownWords);
         btnWriteUnKnownWords.setBounds(100, 110, 200, 20);
+
+        lblQuestion = new JLabel();
+        lblQuestion.setFont(new Font(fontName, 2, 14));
+        lblQuestion.setForeground(new Color(3, 2, 0));
+        String question =
+                "Do you want to change color of unKnownWords in *.srt file?";
+        String html =
+                "<html><body style='width: %1spx'><p style=\"font-family: 'Dubai'; font-size: 14; font-style: italic;\">%1s</p>";
+        lblQuestion.setText(String.format(html, 200, question));
+        lblQuestion.setHorizontalTextPosition(SwingConstants.CENTER);
+        add(lblQuestion);
+        lblQuestion.setBounds(100, 140, 200, 40);
     }
 
     private void btnChooseSrtActionPerformed(ActionEvent e) {
-        System.out.println("Butona basıldı");
         fileChooser.setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
@@ -99,14 +113,10 @@ public class HomePanel extends JPanel {
             fileProcess = new FileProcess(file);
 
             fileProcess.readSrtFile();
-
-            System.out.println(fileProcess.getWords());
-            System.out.println();
         }
     }
 
     private void btnWriteUnKnownWordsActionPerformed(ActionEvent e) {
-        System.out.println("diger buton");
         String targetFileName = txtFileName.getText();
 
         fileProcess.writeUnKnownWords(targetFileName);
