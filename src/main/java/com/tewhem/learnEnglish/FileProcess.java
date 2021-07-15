@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class FileProcess {
+public class FileProcess implements Serializable {
 
+    private static final long serialVersionUID = 001L;
     private final File srtFile;
     private Set<String> unKnownWords = new HashSet<>();
     private Set<String> knownWords = new HashSet<>();
