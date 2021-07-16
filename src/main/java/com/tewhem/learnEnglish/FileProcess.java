@@ -66,6 +66,35 @@ public class FileProcess implements Serializable {
 
     }
 
+    public void changeColorOfUnKnownWords(String colorCode) {
+        try (Scanner reader =
+                new Scanner(new BufferedReader(new FileReader(srtFile)));
+                BufferedWriter writer = new BufferedWriter(
+                        new FileWriter("Changed" + srtFile.getName()))) {
+
+            while (reader.hasNextLine()) {
+                String line = reader.nextLine();
+
+                String[] words = line.split(" ");
+
+                for (int i = 0; i < words.length; i++) {
+                    if (words[i].matches("[a-zA-Z]+") &&
+                            unKnownWords.contains(words[i].toLowerCase())) {
+                        String colorTemp = "<font color=\"%s\">%s</font>";
+                        words[i] =
+                                String.format(colorTemp, colorCode, words[i]);
+                    }
+                }
+
+                String newLine = String.join(" ", words);
+                writer.write(newLine + "\n");
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public File getSrtFile() {
         return srtFile;
     }

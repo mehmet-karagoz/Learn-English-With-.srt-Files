@@ -9,6 +9,7 @@ import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -53,14 +54,14 @@ public class HomePanel extends JPanel {
         btnChooseSrt.setHorizontalTextPosition(SwingConstants.CENTER);
         btnChooseSrt.addActionListener(this::btnChooseSrtActionPerformed);
         add(btnChooseSrt);
-        btnChooseSrt.setBounds(100, 50, 200, 20);
+        btnChooseSrt.setBounds(40, 50, 200, 20);
 
         txtFileName = new JTextField();
         txtFileName.setFont(new Font(fontName, 2, 14));
         txtFileName.setForeground(new Color(3, 2, 0));
         txtFileName.setText("Write file name with *.txt");
         add(txtFileName);
-        txtFileName.setBounds(100, 80, 200, 20);
+        txtFileName.setBounds(40, 80, 200, 20);
 
         btnWriteUnKnownWords = new JButton();
         btnWriteUnKnownWords.setIcon(icon);
@@ -73,7 +74,7 @@ public class HomePanel extends JPanel {
         btnWriteUnKnownWords
                 .addActionListener(this::btnWriteUnKnownWordsActionPerformed);
         add(btnWriteUnKnownWords);
-        btnWriteUnKnownWords.setBounds(100, 110, 200, 20);
+        btnWriteUnKnownWords.setBounds(40, 110, 200, 20);
 
         lblQuestion = new JLabel();
         lblQuestion.setFont(new Font(fontName, 2, 14));
@@ -85,7 +86,7 @@ public class HomePanel extends JPanel {
         lblQuestion.setText(String.format(html, 200, question));
         lblQuestion.setHorizontalTextPosition(SwingConstants.CENTER);
         add(lblQuestion);
-        lblQuestion.setBounds(100, 140, 200, 40);
+        lblQuestion.setBounds(40, 140, 200, 40);
 
         newImg = img.getScaledInstance(110, 25, Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImg);
@@ -99,7 +100,7 @@ public class HomePanel extends JPanel {
         btnYes.setHorizontalTextPosition(SwingConstants.CENTER);
         btnYes.addActionListener(this::btnYesActionPerformed);
         add(btnYes);
-        btnYes.setBounds(100, 190, 90, 20);
+        btnYes.setBounds(40, 190, 90, 20);
 
         btnNo = new JButton();
         btnNo.setIcon(icon);
@@ -111,7 +112,7 @@ public class HomePanel extends JPanel {
         btnNo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnNo.addActionListener(this::btnNoActionPerformed);
         add(btnNo);
-        btnNo.setBounds(210, 190, 90, 20);
+        btnNo.setBounds(150, 190, 90, 20);
     }
 
     private void btnChooseSrtActionPerformed(ActionEvent e) {
@@ -153,10 +154,20 @@ public class HomePanel extends JPanel {
     }
 
     private void btnYesActionPerformed(ActionEvent e) {
-        System.out.println("yes");
+        Color color =
+                JColorChooser.showDialog(this, "Choose Color", Color.BLUE);
+
+        fileProcess.changeColorOfUnKnownWords(color2HexString(color));
+
+        JOptionPane.showMessageDialog(this,
+                "UnKnownWords' color changed successfully");
+    }
+
+    private String color2HexString(Color color) {
+        return "#" + Integer.toHexString(color.getRGB() & 0x00ffffff);
     }
 
     private void btnNoActionPerformed(ActionEvent e) {
-        System.out.println("no");
+        System.exit(0);
     }
 }

@@ -11,7 +11,8 @@ public class HomeScreen extends JFrame {
         super(title);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setBounds(new Rectangle(500, 200, 400, 300));
+        setBounds(new Rectangle(500, 200, 300, 270));
+        setResizable(false);
         HomePanel panel = new HomePanel();
         add(panel);
     }
